@@ -37,7 +37,8 @@
                 <small
                     class="helper-text invalid"
                     v-else-if="$v.password.$dirty && !$v.password.minLength">
-                    Парольдолжен состоять минимум из {{ $v.password.$params.minLength.min }} символов. Добавте еще {{ $v.password.$params.minLength.min - password.length }}
+                    Парольдолжен состоять минимум из {{ $v.password.$params.minLength.min }} символов. Добавте еще
+                    {{ $v.password.$params.minLength.min - password.length }}
                 </small>
             </div>
             <div class="input-field">
@@ -102,7 +103,7 @@ export default {
         agree: {checked: v => v}
     },
     methods: {
-        submitHandler() {
+        async submitHandler() {
             if (this.$v.$invalid) {
                 this.$v.$touch()
                 return
@@ -112,9 +113,14 @@ export default {
                 email: this.email,
                 password: this.password,
                 name: this.name,
-                agree: this.agree
+                // agree: this.agree
             }
-            this.$router.push('/')
+
+            try {
+                await this.$store.dispatch('register', formData)
+                this.$router.push('/')
+            } catch (e) {
+            }
         }
     }
 }
