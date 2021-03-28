@@ -113,7 +113,6 @@ export default {
                 email: this.email,
                 password: this.password,
                 name: this.name,
-                // agree: this.agree
             }
 
             try {
